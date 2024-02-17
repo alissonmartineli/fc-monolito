@@ -1,19 +1,23 @@
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  Column,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
+import { InvoiceItemModel } from "./invoiceItem.mode";
 
 @Table({
-  tableName: "client",
+  tableName: "invoices",
   timestamps: false,
 })
-export class ClientModel extends Model {
+export class InvoiceModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
   declare id: string;
 
   @Column({ allowNull: false })
   declare name: string;
-
-  @Column({ allowNull: false })
-  declare email: string;
 
   @Column({ allowNull: false })
   declare document: string;
@@ -39,6 +43,9 @@ export class ClientModel extends Model {
   @Column({ allowNull: false })
   declare createdAt: Date;
 
-  @Column({ allowNull: false })
+  @Column({ allowNull: true })
   declare updatedAt: Date;
+
+  @HasMany(() => InvoiceItemModel)
+  declare items: InvoiceItemModel[];
 }
