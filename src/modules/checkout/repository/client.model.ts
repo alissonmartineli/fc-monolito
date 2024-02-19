@@ -1,10 +1,17 @@
-import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  Column,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
+import { OrderModel } from "./order.model";
 
 @Table({
   tableName: "clients",
   timestamps: false,
 })
-export class ClientModel extends Model {
+export class ClientCheckoutModel extends Model {
   @PrimaryKey
   @Column({ allowNull: false })
   declare id: string;
@@ -41,4 +48,7 @@ export class ClientModel extends Model {
 
   @Column({ allowNull: false })
   declare updatedAt: Date;
+
+  @HasMany(() => OrderModel)
+  declare orders: OrderModel[];
 }
